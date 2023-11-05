@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 from werkzeug.utils import secure_filename
 import os
+import io
 
 app = Flask(__name__)
 
@@ -19,25 +20,31 @@ def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
+def get_macronutrients(text):
+    return "nothing yet..."
+
+
+def get_objects():
+    pass
+
+
 @app.route("/upload", methods=["POST"])
 def upload_file():
-    # check if the post request has the file part
-    if "file" not in request.files:
-        return jsonify({"error": "No file part"})
+    file = request.files.get("file")  # Use .get to avoid KeyError if 'file' isn't in the form
+    text_input = request.form.get("text_input")  # Retrieve text input from form
 
-    file = request.files["file"]
-
-    # if user does not select file, browser also
-    # submit an empty part without filename
-    if file.filename == "":
-        return jsonify({"error": "No selected file"})
-
-    if file and allowed_file(file.filename):
+    filename = None
+    if file and file.filename != "":
+        # If the user does upload a file, process it
         filename = secure_filename(file.filename)
         file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
-        return jsonify({"success": "File uploaded successfully", "filename": filename})
 
-    return jsonify({"error": "File extension not allowed"})
+    macronutrients = get_macronutrients(text_input)
+    print(text_input)
+    # Return success message with the uploaded filename (if any) and the text
+    return jsonify(
+        {"success": "Text received", "filename": filename if filename else "No file uploaded", "text": text_input}
+    )
 
 
 @app.route("/")
