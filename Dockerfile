@@ -16,5 +16,5 @@ EXPOSE 7007
 # Define environment variable
 ENV NAME World
 
-# Run app.py when the container launches
+# Run main.py when the container launches
 CMD ["python", "main.py"]
