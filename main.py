@@ -40,15 +40,11 @@ def upload_file():
         file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
 
     macronutrients = get_macronutrients(text_input)
-    print(text_input)
-    # Return success message with the uploaded filename (if any) and the text
-    return jsonify(
-        {"success": "Text received", "filename": filename if filename else "No file uploaded", "text": text_input}
-    )
+    return render_template("display_text.html", text=macronutrients)
 
 
 @app.route("/")
-def hello_world():
+def main():
     return render_template("index.html")
 
 
