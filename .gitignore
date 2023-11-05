@@ -158,3 +158,36 @@ cython_debug/
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
+
+# Docker related
+## Default Docker ignore files
+*.dockerignore
+
+## Docker Image files
+*Dockerfile*
+!Dockerfile
+
+## Docker Compose files
+docker-compose*.yml
+!docker-compose.yml
+
+## Docker Volumes
+# Uncomment the following line if you are using Docker volumes.
+# Note that this will ignore the actual directories that may be created
+# by Docker which can sometimes contain important data.
+#*.volumes/
+
+# Virtual Environment
+# Virtualenv
+venv/
+ENV/
+
+# Virtual environment for pipenv, pipx
+.pipenv/
+.pipx/
+.venv/
+
+# Environment variables for Docker
+.env.docker
+/.vs/foody/FileContentIndex
+/.vs
