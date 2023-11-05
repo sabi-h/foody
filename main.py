@@ -10,8 +10,6 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 # This is the path to the directory where you want to save the uploaded files
 
 UPLOAD_FOLDER = "images/"
-if not os.path.exists(UPLOAD_FOLDER):
-    os.makedirs(UPLOAD_FOLDER)
 
 ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif"}
 
@@ -26,12 +24,7 @@ def get_macronutrients(text):
     print(text)
 
     openai_completion = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            {
-                "role": "user",
-                "content": f"what are the macro nutrients in {text}"}
-        ]
+        model="gpt-3.5-turbo", messages=[{"role": "user", "content": f"what are the macro nutrients in {text}"}]
     )
 
     print(openai_completion)
@@ -67,4 +60,4 @@ def main():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=7007)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8080)), debug=True)
