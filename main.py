@@ -23,6 +23,8 @@ def allowed_file(filename):
 
 
 def get_macronutrients(text):
+    print(text)
+
     openai_completion = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=[
@@ -31,10 +33,13 @@ def get_macronutrients(text):
                 "content": f"what are the macro nutrients in {text}"}
         ]
     )
-    if "content" in openai_completion:
-        return openai_completion["content"]
+
+    print(openai_completion)
+
+    if "choices" in openai_completion and openai_completion["choices"]:
+        return openai_completion["choices"][0]["message"]["content"]
     else:
-        raise Exception("No content in openai's response")
+        print("something went wrong")
 
 
 def get_objects():
