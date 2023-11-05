@@ -1,8 +1,0 @@
-runtime: python312
-instance_class: B1  # The smallest and least expensive instance class
-env: standard
-entrypoint: uvicorn main:app --port=${PORT}
-
-basic_scaling:
-  max_instances: 1  # Maximum number of instances that will be created
-  idle_timeout: 5m  # Instances are shut down if they are idle for this duration
