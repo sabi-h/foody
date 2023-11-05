@@ -2,8 +2,10 @@ from flask import Flask, render_template, request, jsonify
 from werkzeug.utils import secure_filename
 import os
 import io
+import openai
 
 app = Flask(__name__)
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # This is the path to the directory where you want to save the uploaded files
 
@@ -21,7 +23,18 @@ def allowed_file(filename):
 
 
 def get_macronutrients(text):
-    return "nothing yet..."
+    openai_completion = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {
+                "role": "user",
+                "content": f"what are the macro nutrients in {text}"}
+        ]
+    )
+    if "content" in openai_completion:
+        return openai_completion["content"]
+    else:
+        raise Exception("No content in openai's response")
 
 
 def get_objects():
