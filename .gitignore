@@ -1,5 +1,7 @@
 misc/
 
+.idea/
+
 app.yaml
 
 # Byte-compiled / optimized / DLL files
