@@ -1,9 +1,8 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Upload new File</title>
-</head>
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<title>Upload new File</title>
 <body>
   <h1>Upload new File</h1>
   <form action="/upload" method="post" enctype="multipart/form-data">
@@ -14,4 +13,5 @@
     <input type="submit" value="Submit">
   </form>
 </body>
-</html>
+
+{% endblock %}
